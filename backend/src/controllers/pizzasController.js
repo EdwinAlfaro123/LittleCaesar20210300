@@ -7,7 +7,7 @@ const pizzasController = {};
 
 //Importo el Schema a utilizar
 
-import pizzasModel from "../models/pizza.js";
+import pizzasModel from "../models/pizzas.js";
 
 //SELECT
 pizzasController.getPizzas = async (req, res) => {
