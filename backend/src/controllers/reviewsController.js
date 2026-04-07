@@ -5,6 +5,8 @@ import reviewsModel from "../models/reviews.js"
 reviewsController.getReviews = async(req, res) => {
     try {
         const reviews = await reviewsModel.find()
+        res.json(reviews)
+
     } catch (error) {
         console.log("error" + error)
         return res.status(500).json({message: "Internal Server error"})
