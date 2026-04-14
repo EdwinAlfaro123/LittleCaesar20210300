@@ -16,50 +16,6 @@ employeeController.getEmployees = async(req, res) => {
     }
 }
 
-//Insert
-employeeController.insertEmployee = async(req, res) => {
-    try {
-        //hacemos una petición donde mediante un array pedimos los datos
-        let {name, lastName, DUI, birthDate, email, password, isVerified, status, idBranches} = req.body
-
-        //VALIDADCIONES
-        //Sanitizar
-        name = name?.trim()
-        email = email?.trim()
-        password = password?.trim()
-
-        //campos requiridos
-        if(!name || !email || !password){
-            return res.status(400).json({message: "Field required"})
-        }
-
-        //Longuitud de caracteres
-        if(name.length < 3 || name.length > 20){
-            return res.status(400).json({message: "name lust be real"})
-        }
-
-        //Validacion de fecha
-        if(birthDate > new Date || birthDate < new Date("1910-01-01")){
-            return res.status(400).json({message: "Invalid date"})
-        }
-
-        //DUI
-        if(DUI.length > 10 || DUI.length < 9){
-            return res.status(400).json({message: "Invalid DUI"})
-        }
-
-        //creamos una constante donde guardamos los datos que nos ha dado el usuario un array
-        const newEmployee = new employeesModel({
-            name, lastName, DUI, birthDate, email, password, isVerified, status, idBranches
-        })
-        await newEmployee.save()
-        return res.status(201).json({message: "empleado ingresado correctamente"})   
-    } catch (error) {
-        console.log("error" + error)
-        return res.status(500).json({message: "Internal Server error"})
-    }
-}
-
 //Update
 employeeController.updateEmployee = async(req, res) => {
     try {

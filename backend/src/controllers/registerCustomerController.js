@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer" //Enviar correos
 import crypto from "crypto" //Generar codigos aleatorios
 import jsonwebtoken from "jsonwebtoken" //Token
-import bcryptojs from "bcryptojs" //Encriptar contraseña
+import bcryptjs from "bcryptjs" //Encriptar contraseña
 import {config} from "../../config.js" 
 
 import customerModel from "../models/customers.js"
@@ -21,7 +21,7 @@ registerCustomerController.register = async (req, res) => {
         }
 
         //Encriptar la contraseña
-        const passwordHashed = await bcryptojs.hash(password, 10)
+        const passwordHashed = await bcryptjs.hash(password, 10)
 
         //Generar un codigo aleatorio
         const randomCode = crypto.randomBytes(3).toString("hex")
@@ -81,7 +81,7 @@ registerCustomerController.verifyCode = async (req, res) => {
         const {verificationCodeRequest} = req.body
 
         //Obtener el token de las cookies
-        const token = req.cookie.registrationCookie
+        const token = req.cookies.registrationCookie
 
         //Extraer todos los datos del token
         const decoded = jsonwebtoken.verify(token, config.JWT.secret)
@@ -108,7 +108,7 @@ registerCustomerController.verifyCode = async (req, res) => {
 
         await newCustomer.save()
 
-        res.clearCokkie("registrationCookie")
+        res.clearCookie("registrationCookie")
 
         return res.status(200).json({message: "Customer registred"})
     } catch (error) {

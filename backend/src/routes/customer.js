@@ -3,10 +3,10 @@ import customerController  from "../controllers/customerController.js"
 
 const router = express.Router()
 
-route.route(":/")
+router.route("/")
 .get(customerController.getCustomers)
 
-route.route(":/id")
+router.route("/:id")
 .put(customerController.putCustomers)
 .delete(customerController.deleteCustomer)
 
