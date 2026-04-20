@@ -26,7 +26,7 @@ loginCustomerController.login = async (req, res) => {
         }
 
         //Validar la contraseña
-        const isMatch = await bcrypt.compare(password, customerFound.password)
+        const isMatch = await bcryptjs.compare(password, customerFound.password)
 
         //Si la contraseña esta incorrecta
         if(!isMatch){

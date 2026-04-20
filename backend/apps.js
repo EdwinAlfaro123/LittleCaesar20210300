@@ -6,6 +6,8 @@ import reviewsRoutes from "./src/routes/reviews.js";
 import customerRoutes from "./src/routes/customer.js"
 import registerCustomerRoutes from "./src/routes/registerCustomer.js"
 import registerEmployeeRoutes from "./src/routes/registerEmployee.js"
+import loginCustomerRoutes from "./src/routes/loginCustomer.js"
+import logoutRoutes from "./src/routes/logout.js"
 import cookieParser from "cookie-parser";
 
 //Creo una constante que es igual a
@@ -24,6 +26,7 @@ app.use("/api/reviews", reviewsRoutes)
 app.use("/api/customers", customerRoutes)
 app.use("/api/registerCustomer", registerCustomerRoutes)
 app.use("/api/regsiterEmployee", registerEmployeeRoutes)
-app.use("/api/loginCustomers", )
+app.use("/api/loginCustomers", loginCustomerRoutes)
+app.use("/api/logout", logoutRoutes)
 
 export default app;
