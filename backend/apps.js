@@ -9,10 +9,17 @@ import registerEmployeeRoutes from "./src/routes/registerEmployee.js"
 import loginCustomerRoutes from "./src/routes/loginCustomer.js"
 import logoutRoutes from "./src/routes/logout.js"
 import cookieParser from "cookie-parser";
+import cors from "cors"
 
 //Creo una constante que es igual a
 //La libreria Express
 const app = express();
+
+app.use(cors({
+    origin: ["http://localhost:5173", "http://localhost:5174"],
+    //permitir el envio de cookies y credenciales
+    credentials: true
+}))
 
 app.use(cookieParser())
 
