@@ -24,5 +24,6 @@ app.use("/api/reviews", reviewsRoutes)
 app.use("/api/customers", customerRoutes)
 app.use("/api/registerCustomer", registerCustomerRoutes)
 app.use("/api/regsiterEmployee", registerEmployeeRoutes)
+app.use("/api/loginCustomers", )
 
 export default app;
