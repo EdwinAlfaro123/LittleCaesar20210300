@@ -49,14 +49,14 @@ recoveryPassswordController.requestCode = async (req, res) => {
             }
         })
 
-        //2. Quien lo recibe y como
+        //#2- ¿Quien lo recibe y como lo recibe?
         const mailOptions = {
             from: config.email.user_email,
             to: email,
-            subject:"Recuperacion de contraseña",
-            Body: "El codigo vence 15 minutos",
-            html: HTMLRecoveryEmail(randomCode)
-        }
+            subject: "Recuperacion de contraseña",
+            body: "El codigo vence en 15 minutos",
+            html: HTMLRecoveryEmail(randomCode),
+        };
 
         //3. enviar  correo
         transporter.sendMail(mailOptions, (error, info)=>{
@@ -66,12 +66,6 @@ recoveryPassswordController.requestCode = async (req, res) => {
             }
             return res.status(200).json({message: "email sent"})
         })
-
-        if(error){
-            return res.status(500).json({message: "Error sendind email"})
-        }
-
-        return res.status(200).json({message: "email sent"})
     } catch (error) {
         console.log("error"+error)
         return res.status(500).json({message: "Internal Server Error"})
@@ -85,7 +79,7 @@ recoveryPassswordController.verifyCode = async (req, res) => {
 
         //Obtenemos la informaicon que esta dentro del token
         //Accedemos a la cookie
-        const token = req.cookies.recoveryPassswordController
+        const token = req.cookies.recoveryCookie
         const decoded = jsonwebtoken.verify(token,config.JWT.secret)
 
         //Ahora vamos a comparar el codigo que el usuario escribio
@@ -126,7 +120,7 @@ recoveryPassswordController.newPassword = async (req, res) => {
 
         //Vamos a comprobar que la contante verified que esta en el token
         //ya sea true
-        const token = req.cookies.requestCookie
+        const token = req.cookies.recoveryCookie
         const decoded = jsonwebtoken.verify(token, config.JWT.secret)
     
         if(!decoded.verified){
@@ -137,7 +131,7 @@ recoveryPassswordController.newPassword = async (req, res) => {
         const passwordHash = await bcryptjs.hash(newPassword, 10)
 
         //Actualizar la contraseña en la base de datos
-        await customerModel.findByIdAndUpdate(
+        await customerModel.findOneAndUpdate(
             {email: decoded.email},
             {password: passwordHash},
             {new: true}
@@ -148,7 +142,7 @@ recoveryPassswordController.newPassword = async (req, res) => {
         return res.status(200).json({message: "Password updated"})
     } catch (error) {
         console.log("error" + error)
-        return res.status(500).json({message: "Internal Server erro"})
+        return res.status(500).json({message: "Internal Server error"})
     }
 }
 
