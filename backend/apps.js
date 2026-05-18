@@ -37,5 +37,6 @@ app.use("/api/regsiterEmployee", registerEmployeeRoutes)
 app.use("/api/loginCustomers", loginCustomerRoutes)
 app.use("/api/logout", logoutRoutes)
 app.use("/api/recoveryPassword", RecoveryPassword)
+app.use("/api/providers")
 
 export default app;
