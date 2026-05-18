@@ -64,9 +64,9 @@ providersController.updateProvider = async (req, res) => {
 
         //Actualizamos los valores en la base de datos
 
-        await providersModel.findByIdAndUpdate(req.params.id, { 
+        await providersModel.findByIdAndUpdate(
+            req.params.id,
             updatedData,
-        }, 
             {new: true}
         );
 
@@ -82,7 +82,7 @@ providersController.deleteProvider = async (req, res) => {
     try {
         const providerFound = await providersModel.findById(req.params.id);
 
-        await cloudinary.uploader.destroy(providerFound.public_id);
+        await cloudinary.uploader
 
         await providersModel.findByIdAndDelete(req.params.id);
         res.status(200).json({message: "Proveedor eliminado correctamente"});
