@@ -15,6 +15,84 @@ pizzasController.getPizzas = async (req, res) => {
     res.json(pizzas);
 };
 
+pizzasController.getPizzasById = async ( req, res ) =>{
+    try {
+        const pizza = await pizzasModel.findById(req.params.id)
+
+        if(!pizza){
+            return res.status(404).json({message: "Not Found"})
+        }
+
+        return res.status(200).json(pizza)
+    } catch (error) {
+        console.log("error" + error)
+        return res.status(500).json({message: "Internal Server Error"})
+    }
+}
+
+pizzasController.getLowStock = async (req, res) => {
+    try {
+        const pizzasLowStock = await pizzasModel.find({stock: {$lt:11}})
+
+        if(!pizzasLowStock){
+            return res.status(404).json({message: "No hay pizzas con stock bajo"})
+        }
+
+        return res.status(200).json(pizzasLowStock)
+    } catch (error) {
+        console.log("error" + error)
+        return res.status(500).json({message: "Internal Server Error"})
+    }
+}
+
+pizzasController.getPizzaPriceRange = async (req, res) => {
+    try {
+        const {min, max} = req.body
+
+        const pizzas = await pizzasModel.find({
+            price: {$gte: min, $lte:max}
+        })
+
+        if(!pizzas){
+            return res.status(404).json({message: "Not pizzas with this price range"})
+        }
+
+        return res.status(200).json(pizzas)
+    } catch (error) {
+        console.log("error" + error)
+        return res.status(500).json({message: "Internal Server Error"})
+    }
+}
+
+pizzasController.countPizzas = async (req, res) => {
+    try {
+        const count = await pizzasModel.countDocuments()
+        return res.status(200).json({count})
+    } catch (error) {
+        console.log("error" + error)
+        return res.status(500).json({message: "Internal Server Error"})
+    }
+}
+
+pizzasController.searchByName = async (req, res) => {
+    try {
+        const {name} = req.body
+
+        const pizzas = await pizzasModel.find({
+            name: {$regex: name, $options: "i"}
+        })
+
+        if(!pizzas){
+            return res.status(404).json({message: "Pizza Not Found with this name"})
+        }
+
+        return res.status(200).json(pizzas)
+    } catch (error) {
+        console.log("error" + error)
+        return res.status(500).json({message: "Internal Server Error"})
+    }
+}
+
 //INSERT
 pizzasController.insertPizza = async (req, res) => {
     //Paso 1: Solicitar los datos que se guardaran
