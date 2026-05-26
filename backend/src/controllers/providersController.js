@@ -29,8 +29,8 @@ providersController.insertProvider = async (req, res) => {
         const newProvider = new providersModel({
             name,
             phone,
-            image: req.file.path,
-            public_id: req.file.filename
+            image: req.files.map(file => file.path),
+            public_id: req.files.map(file => file.filename)
         });
         //Paso 3: Guardar todo en la base de datos
         await newProvider.save();

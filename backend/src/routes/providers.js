@@ -8,10 +8,10 @@ const router = express.Router();
 
 router.route("/")
 .get(providerController.getProviders)
-.post(upload.single("image"), providerController.insertProvider)
+.post(upload.array("images"), providerController.insertProvider)
 
 router.route("/:id")
-.put(upload.single("image"), providerController.updateProvider)
+.put(upload.array("images"), providerController.updateProvider)
 .delete(providerController.deleteProvider)
 
 export default router;

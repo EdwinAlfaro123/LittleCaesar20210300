@@ -7,13 +7,19 @@ const providerSchema = new Schema({
     phone: {
         type: String
     },
-    image: {
-        type: String
-    },
-    public_id: {
-        type: String
-    }
+    images:[ 
+        {
+            image: {
+                type: String
+            },
+            public_id: {
+                type: String
+            }
+        }
+    ]
 }, {
+   
+
     timestamps: true,
     strict: false
 });

@@ -27,7 +27,7 @@ app.use(cors({
 app.use(cookieParser())
 
 //Para que la API acepte json
-app.use(express.json())
+app.use(express.json()) 
 
 app.use("/api/pizzas", pizzaRoutes) ;
 app.use("/api/branches", brancheRoutes)
