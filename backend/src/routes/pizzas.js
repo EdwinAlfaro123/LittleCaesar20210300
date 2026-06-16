@@ -1,13 +1,14 @@
 import express from "express";
 import pizzasController from "../controllers/pizzasController.js";
+import { validateAuthCookie} from "../middlewares/authMiddlewares.js"
 
 //Router() nos ayuda a colocar los metodos que tendrá el endpoint
 
 const router = express.Router();
 
 router.route("/")
-.get(pizzasController.getPizzas)
-.post(pizzasController.insertPizza)
+.get( validateAuthCookie(["admin", "customer"]), pizzasController.getPizzas)
+.post( validateAuthCookie(["admin"]), pizzasController.insertPizza)
 
 router.route("/low-cost")
 .get(pizzasController.getLowStock)
