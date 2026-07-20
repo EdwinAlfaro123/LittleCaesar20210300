@@ -19,7 +19,7 @@ import {validateAuthCookie} from "./src/middlewares/authMiddlewares.js"
 import RegisteradminRoute from "./src/routes/registerAdmin.js"
 import adminRoutes from "./src/routes/admin.js"
 import loginAdminRoutes from "./src/routes/loginAdmin.js";
-
+import limiter from "./src/middlewares/limiter.js"
 
 //Creo una constante que es igual a
 //La libreria Express
@@ -32,6 +32,8 @@ app.use(cors({
 }))
 
 app.use(cookieParser())
+
+app.use(limiter)
 
 //Para que la API acepte json
 app.use(express.json()) 
