@@ -21,6 +21,8 @@ import adminRoutes from "./src/routes/admin.js"
 import loginAdminRoutes from "./src/routes/loginAdmin.js";
 import limiter from "./src/middlewares/limiter.js"
 
+import swaggerUI from "swagger-ui-express"
+import swaggerDocument from "./src/utils/antibots-LittleCaesarAPI-1.0-resolved (1).json" with {type: "json"}
 //Creo una constante que es igual a
 //La libreria Express
 const app = express();
@@ -34,6 +36,8 @@ app.use(cors({
 app.use(cookieParser())
 
 app.use(limiter)
+
+app.use("/api/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
 //Para que la API acepte json
 app.use(express.json()) 
