@@ -2,15 +2,252 @@
   "openapi": "3.0.0",
   "info": {
     "title": "LittleCaesar",
-    "description": "UNU",
+    "description": "Documentacion de api de little ceaser",
     "version": "1.0"
   },
   "servers": [
     {
       "url": "https://virtserver.swaggerhub.com/antibots/LittleCaesarAPI/1.0",
       "description": "SwaggerHub API Auto Mocking"
+    },
+    {
+      "url": "https://littlecaesar20210300.onrender.com",
+      "description": "Render"
     }
   ],
-  "paths": {},
-  "components": {}
+  "paths": {
+    "/pizzas": {
+      "get": {
+        "tags": [],
+        "summary": "Your GET endpoint",
+        "description": "Con este metodo traemos todo el listado de pizas de la base de datos",
+        "operationId": "get-pizzas",
+        "parameters": [
+          {
+            "name": "authCookie",
+            "in": "cookie",
+            "description": "client",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [],
+        "summary": "Your PUT endpoint",
+        "operationId": "put-pizzas",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/pizzas"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [],
+        "summary": "Your POST endpoint",
+        "operationId": "post-pizzas",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/pizzas"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [],
+        "summary": "Your DELETE endpoint",
+        "operationId": "delete-pizzas",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/branches": {
+      "get": {
+        "tags": [],
+        "summary": "Your GET endpoint",
+        "description": "Traer todas las sucursales",
+        "operationId": "get-branches",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [],
+        "summary": "Your PUT endpoint",
+        "operationId": "put-branches",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/branches"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [],
+        "summary": "Your POST endpoint",
+        "description": "Aqui se agregan sucursales",
+        "operationId": "post-branches",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/branches"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [],
+        "summary": "Your DELETE endpoint",
+        "operationId": "delete-branches",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "pizzas": {
+        "title": "pizzas",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "stock": {
+            "type": "number"
+          }
+        }
+      },
+      "branches": {
+        "title": "branches",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "schedule": {
+            "type": "string"
+          },
+          "isActive": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
 }

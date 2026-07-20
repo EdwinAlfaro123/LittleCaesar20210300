@@ -22,7 +22,7 @@ import loginAdminRoutes from "./src/routes/loginAdmin.js";
 import limiter from "./src/middlewares/limiter.js"
 
 import swaggerUI from "swagger-ui-express"
-import swaggerDocument from "./src/utils/antibots-LittleCaesarAPI-1.0-resolved (1).json" with {type: "json"}
+import swaggerDocument from "./src/utils/antibots-LittleCaesarAPI-1.0-resolved.json" with {type: "json"}
 //Creo una constante que es igual a
 //La libreria Express
 const app = express();
